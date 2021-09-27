@@ -1,73 +1,97 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Clothing Store API V1.0
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+An API for a Clothing Store Purpose built with NestJs and its infrastructure with Docker
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
 
+![Logo](https://i.ytimg.com/vi/jYFyLLqvHy8/maxresdefault.jpg)
+
+
+## Requirements
+To run the project you should have installed:
+
+- Docker
+- Docker-Compose
+  
+## Deployment Dev Environment
+
+To deploy dev enviroment follow these steps:
+
+Go to root folder:
 ```bash
-$ npm install
+  $ cd clothing-store-app
 ```
 
-## Running the app
+*If you want to change the environment variables you can approach that in .envs/.local/*
 
+
+Make up the containers and run:
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  $ docker-compose -f docker-compose.dev.yml up -d
 ```
 
-## Test
-
+When it is ready you can go to:
 ```bash
-# unit tests
-$ npm run test
+  http://localhost:3000/api/v1
+```
+Done
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
+
+
+  
+## API Reference
+#### API Versioning Prefix
+
+- 'api/v1'
+
+#### API Documentation
+
+All the resources availables are in:
+```http
+  GET /api/v1/
 ```
 
-## Support
+## PostgreSQL Backups with Docker
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Creating a Backup
+To create a backup, run:
+```bash
+$ docker-compose -f local.yml exec postgres backup
+```
 
-## Stay in touch
+Then you will see:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+Backing up the 'clothingstoredb' database...
+SUCCESS: 'clothingstoredb' database backup 'backup_2018_03_13T09_05_07.sql.gz' has been created and placed in '/backups'.
+```
 
-## License
+#### Keep in mind that /backups is the postgres container directory.
 
-Nest is [MIT licensed](LICENSE).
+### Viewing the Existing Backups
+
+To list existing backups
+
+```bash
+$ docker-compose -f local.yml exec postgres backups
+```
+
+### Copying Backups Locally
+If you want to copy backups from your postgres container locally, docker cp command will help you on that.
+
+For example, given 9c5c3f055843 is the container ID copying all the backups over to a local directory is as simple as
+
+```bash
+$ docker cp 9c5c3f055843:/backups ./backups
+```
+
+### Restoring from the Existing Backup
+To restore from one of the backups you have already got (take the backup_2018_03_13T09_05_07.sql.gz for example),
+
+```bash
+$ docker-compose -f local.yml exec postgres restore backup_2018_03_13T09_05_07.sql.gz
+```
+
