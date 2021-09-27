@@ -5,6 +5,5 @@ export class CreateChildDto {
   name: string;
 
   @IsUUID(4)
-  @IsNotEmpty()
   parentId: string;
 }
