@@ -1,0 +1,66 @@
+version: '3.3'
+
+services:
+  nestjs:
+    build:
+      context: .
+      dockerfile: ./compose/production/nestjs/Dockerfile
+    image: clothing_store_production_nestjs
+    container_name: clothing_store_production_nestjs
+    depends_on:
+      - postgres
+    env_file:
+      - ./.envs/.production/.nestjs
+      - ./.envs/.production/.postgres
+    command: /app/start
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.nestjs.loadbalancer.server.port=3000
+      - traefik.http.routers.nestjs.rule=Host(`${NESTJS_HOST:-productionhost}`)
+      - traefik.http.routers.nestjs.entrypoints=nestjs
+    networks:
+      - production_backend
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: clothing_store_production_postgres
+    container_name: clothing_store_production_postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data:Z
+      - production_postgres_data_backups:/backups:z
+    env_file:
+      - ./.envs/.production/.postgres
+    networks:
+      - production_backend
+
+  traefik:
+    image: traefik:v2.4
+    container_name: clothing_store_production_traefik
+    command:
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.docker.network=backend"
+      - "--entryPoints.nestjs.address=:8080"
+    # Uncomment to get Traefik dashboard
+      - "--entryPoints.dashboard.address=:8090"
+      - "--api.dashboard=true"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.dashboard.entrypoints=dashboard
+      - traefik.http.routers.dashboard.service=api@internal
+      - traefik.http.routers.dashboard.rule=Host(`${APP_HOST:-productionhost}`)
+    ports:
+      - 8080:8080
+      - 8090:8090
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - production_backend
+
+volumes:
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
+
+networks:
+  production_backend:

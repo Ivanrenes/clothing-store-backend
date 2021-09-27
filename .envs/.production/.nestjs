@@ -1,0 +1,3 @@
+NODE_ENV=production
+JWTKEY=this_is_my_magic_secret_key_clothing_store_project
+TOKEN_EXPIRATION=1h
