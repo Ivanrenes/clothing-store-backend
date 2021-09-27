@@ -15,7 +15,7 @@ services:
     command: /app/start
     labels:
       - traefik.enable=true
-      - traefik.http.services.nestjs.loadbalancer.server.port=3000
+      - traefik.http.services. .loadbalancer.server.port=3000
       - traefik.http.routers.nestjs.rule=Host(`${APP_HOST:-localhost}`)
       - traefik.http.routers.nestjs.entrypoints=nestjs
     networks:

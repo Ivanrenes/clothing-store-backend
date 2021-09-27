@@ -4,8 +4,8 @@ services:
   nestjs:
     container_name: clothing_store_production_nestjs
     labels:
-      - traefik.http.routers.app.entrypoints=websecure
-      - traefik.http.routers.app.tls.certresolver=lets-encrypt
+      - traefik.http.routers.nestjs.entrypoints=websecure
+      - traefik.http.routers.nestjs.tls.certresolver=lets-encrypt
 
   traefik:
     image: traefik:v2.4
