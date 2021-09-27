@@ -38,6 +38,8 @@ services:
   traefik:
     image: traefik:v2.4
     container_name: clothing_store_production_traefik
+    env_file:
+      - ./.envs/.production/.traefik
     command:
       - "--providers.docker.exposedByDefault=false"
       - "--providers.docker.network=backend"
