@@ -9,6 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { DataType } from 'sequelize-typescript';
 import { User } from 'src/modules/users/entities/user.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Table
 export class Parent extends Model {
@@ -17,6 +18,7 @@ export class Parent extends Model {
   @Column({ defaultValue: DataType.UUIDV4 })
   id: string;
 
+  @ApiProperty()
   @Column({
     allowNull: false,
   })
