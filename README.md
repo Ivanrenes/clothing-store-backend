@@ -51,8 +51,7 @@ Go to root folder:
 
 Export these variables in the server:
 ```bash
-  $ export APP_HOST=your_domain_for_traefik
-  $ export NESTJS_HOST=your_domain_for_nestjs
+  $ export APP_HOST=your_domain
 ```
 
 Make up the containers and run:
@@ -78,6 +77,10 @@ Export these variables in the server:
   $ export ACME_EMAIL=your_email
 ```
 
+Run:
+```bash
+  $ docker-compose -f your_docker_file -f docker-compose.https.yml up -d
+```
 
 ## API Reference
 #### API Versioning Prefix
