@@ -56,12 +56,12 @@ Export these variables in the server:
 
 Make up the containers and run:
 ```bash
-  $ docker-compose -f docker-compose.dev.yml up -d
+  $ docker-compose up -d
 ```
 
 When it is ready you can go to:
 ```bash
-  http://NESTJS_HOST:8080/api/v1
+  http://your_domain/api/v1
 ```
 Done
 
