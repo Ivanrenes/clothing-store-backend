@@ -67,9 +67,18 @@ When it is ready you can go to:
 Done
 
 
+## Enable SSL
+*Is mandatory had made deployment for this step*
+
+To enable ssl follow these steps:
 
 
-  
+Export these variables in the server:
+```bash
+  $ export ACME_EMAIL=your_email
+```
+
+
 ## API Reference
 #### API Versioning Prefix
 

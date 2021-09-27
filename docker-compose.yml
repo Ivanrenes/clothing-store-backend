@@ -16,7 +16,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.nestjs.loadbalancer.server.port=3000
-      - traefik.http.routers.nestjs.rule=Host(`${NESTJS_HOST:-localhost}`)
+      - traefik.http.routers.nestjs.rule=Host(`${APP_HOST:-localhost}`)
       - traefik.http.routers.nestjs.entrypoints=nestjs
     networks:
       - production_backend
