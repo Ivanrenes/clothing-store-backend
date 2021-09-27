@@ -1,3 +1,4 @@
 NODE_ENV=development
 JWTKEY=this_is_my_magic_secret_key_clothing_store_project
 TOKEN_EXPIRATION=48h
+CORS_WHITELIST=ec2-3-128-168-222.us-east-2.compute.amazonaws.com

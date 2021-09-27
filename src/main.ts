@@ -24,7 +24,7 @@ async function bootstrap() {
   SwaggerModule.setup('api/v1', app, document);
 
   //cors domains
-  const whitelist = ['localhost:3000', 'api.example.com'];
+  const whitelist = process.env.CORS_WHITELIST;
 
   //cors config
   app.enableCors({
