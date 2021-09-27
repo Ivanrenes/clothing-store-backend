@@ -16,7 +16,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.nestjs.loadbalancer.server.port=3000
-      - traefik.http.routers.nestjs.rule=Host(`${NESTJS_HOST:-productionhost}`)
+      - traefik.http.routers.nestjs.rule=Host(`${NESTJS_HOST:-clothingstore.rodriguezivan.us}`)
       - traefik.http.routers.nestjs.entrypoints=nestjs
     networks:
       - production_backend
@@ -51,7 +51,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.dashboard.entrypoints=dashboard
       - traefik.http.routers.dashboard.service=api@internal
-      - traefik.http.routers.dashboard.rule=Host(`${APP_HOST:-productionhost}`)
+      - traefik.http.routers.dashboard.rule=Host(`${APP_HOST:-clothingstore.rodriguezivan.us}`)
     ports:
       - 8080:8080
       - 8090:8090

@@ -1,5 +1,5 @@
 NODE_ENV=production
-NESTJS_HOST=ec2-3-128-168-222.us-east-2.compute.amazonaws.com
+NESTJS_HOST=clothingstore.rodriguezivan.us
 JWTKEY=this_is_my_magic_secret_key_clothing_store_project
 TOKEN_EXPIRATION=1h
-CORS_WHITELIST=ec2-3-128-168-222.us-east-2.compute.amazonaws.com
+CORS_WHITELIST=clothingstore.rodriguezivan.us
