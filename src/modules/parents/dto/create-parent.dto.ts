@@ -4,6 +4,5 @@ export class CreateParentDto {
   @IsNotEmpty()
   description: string;
 
-  @IsUUID()
   userId: string;
 }
