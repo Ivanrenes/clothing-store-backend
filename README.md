@@ -34,7 +34,7 @@ Make up the containers and run:
 
 When it is ready you can go to:
 ```bash
-  http://localhost:3000/api/v1
+  http://localhost:8080/api/v1
 ```
 Done
 
